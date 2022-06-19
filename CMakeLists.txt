@@ -11,6 +11,7 @@ set(libcall_src
     main.cpp
     src/help.cpp
     src/config.cpp
+    src/read_config_txt.cpp
 )
 
 ## Define the executable

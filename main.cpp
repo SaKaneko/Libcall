@@ -4,11 +4,32 @@
 #include <vector>
 #include "include/help.hpp"
 #include "include/config.hpp"
+#include "include/read_config_txt.hpp"
 
 using namespace std;
 config Cf;
 
-void read_prearg(int& argc, std::vector<std::string>& argv) {
+void read_config_txt_path(int& argc, std::vector<std::string>& argv) {
+  for (int i = 1; i < argc - 1; i++) {
+    if (argv[i] == "-C" || argv[i] == "-config_txt_path") {
+      if (Cf.check_input(argv[i].substr(1), argv[i + 1])) {
+        // printf("input_success\n");
+        argv.erase(argv.begin() + i);
+        argv.erase(argv.begin() + i);
+        i--;
+      }
+      else {
+        printf("[input error] error in config_txt_path %s , %s\n",
+               argv[i].c_str(), argv[i + 1].c_str());
+        help();
+      }
+    }
+  }
+}
+
+void read_config_txt() {}
+
+void read_preargs(int& argc, std::vector<std::string>& argv) {
   if (argc <= 1 || argv[1] == "--help") {
     help();
   }
@@ -52,13 +73,16 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < argc; i++) {
     Argv[i] = argv[i];
   }
+  /*
   for (const auto& file :
        std::filesystem::directory_iterator(std::filesystem::absolute(".")))
   {
     cout << file.path().stem() << endl;
-  }
+  }*/
 
-  read_prearg(argc, Argv);
+  read_config_txt_path(argc, Argv);
+  read_config_txt(Cf);
+  read_preargs(argc, Argv);
   read_args(argc, Argv);
   Cf.show_config();
   for (const auto& i : Argv) {

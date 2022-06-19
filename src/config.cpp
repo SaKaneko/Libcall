@@ -8,7 +8,7 @@ void config::init() {
   libpath         = "~";
   targetcode      = "~";
   marker          = "BEGINMYLIB";
-  config_txt_path = "~/libcall_config.txt";
+  config_txt_path = "/libcall_config.txt";
 }
 
 config::config() {
@@ -17,7 +17,13 @@ config::config() {
 
 bool config::path_valid(std::string in) {
   std::filesystem::path p = in;
-  return std::filesystem::exists(p);
+  if (std::filesystem::exists(p)) {
+    return 1;
+  }
+  else {
+    printf("[error] invalid path %s\n", in);
+    return 0;
+  }
 }
 
 bool config::edit_config(std::string val, std::string in) {
@@ -68,8 +74,8 @@ bool config::check_input(std::string val, std::string in) {
 }
 
 void config::show_config() {
-  std::cout << config_vals[0] << " " << libpath << std::endl;
-  std::cout << config_vals[1] << " " << targetcode << std::endl;
-  std::cout << config_vals[2] << " " << marker << std::endl;
+  std::cout << config_vals[0] << "         " << libpath << std::endl;
+  std::cout << config_vals[1] << "      " << targetcode << std::endl;
+  std::cout << config_vals[2] << "          " << marker << std::endl;
   std::cout << config_vals[3] << " " << config_txt_path << std::endl;
 }
