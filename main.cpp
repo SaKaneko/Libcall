@@ -5,6 +5,8 @@
 #include "include/help.hpp"
 #include "include/config.hpp"
 #include "include/read_config_txt.hpp"
+#include "include/targetcode.hpp"
+#include "include/targetutil.hpp"
 
 using namespace std;
 config Cf;
@@ -26,8 +28,6 @@ void read_config_txt_path(int& argc, std::vector<std::string>& argv) {
     }
   }
 }
-
-void read_config_txt() {}
 
 void read_preargs(int& argc, std::vector<std::string>& argv) {
   if (argc <= 1 || argv[1] == "--help") {
@@ -85,6 +85,17 @@ int main(int argc, char* argv[]) {
   read_preargs(argc, Argv);
   read_args(argc, Argv);
   Cf.show_config();
+  target T(Cf.targetcode);
+  dividetarget(T, Cf);
+  printf("===========formar=============\n");
+  for (const auto& i : T.formar) {
+    cout << i << endl;
+  }
+  printf("===========latter=============\n");
+  for (const auto& i : T.latter) {
+    cout << i << endl;
+  }
+
   for (const auto& i : Argv) {
     cout << i << endl;
   }

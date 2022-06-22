@@ -9,6 +9,7 @@ set(libcall_src
     src/help.cpp
     src/config.cpp
     src/read_config_txt.cpp
+    src/targetutil.cpp
 )
 
 ## Define the executable

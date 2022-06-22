@@ -1,6 +1,10 @@
+#pragma once
 #include <string>
+#include <filesystem>
+#include <vector>
 
 struct target {
-  int cutline;
-  int lastinclude;
+  std::filesystem::path p;
+  std::vector<std::string> formar, latter;
+  target(std::filesystem::path P) : p(P) {}
 };
