@@ -10,6 +10,7 @@ set(libcall_src
     src/config.cpp
     src/read_config_txt.cpp
     src/targetutil.cpp
+    src/dividecode.cpp
 )
 
 ## Define the executable
